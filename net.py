@@ -2,7 +2,6 @@
 #coding=utf-8
 
 import numpy as np
-import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -79,7 +78,7 @@ class ResNet(nn.Module):
         return out1, out2, out3, out4, out5
 
     def initialize(self):
-        self.load_state_dict(torch.load('../res/resnet50-19c8e357.pth'), strict=False)
+        self.load_state_dict(torch.load('res/resnet50-19c8e357.pth'), strict=False)
 
 class Decoder(nn.Module):
     def __init__(self):

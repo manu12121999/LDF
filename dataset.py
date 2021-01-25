@@ -95,32 +95,18 @@ class Data(Dataset):
         self.resize     = Resize(352, 352)
         self.totensor   = ToTensor()
 
-        with open(cfg.datapath+'/'+cfg.mode+'.txt', 'r') as lines:
-            self.samples = []
-            for line in lines:
-                self.samples.append(line.strip())
 
     def __getitem__(self, idx):
-        name  = self.samples[idx]
-        image = cv2.imread(self.cfg.datapath+'/image/'+name+'.jpg')[:,:,::-1].astype(np.float32)
-
-        if self.cfg.mode=='train':
-            mask  = cv2.imread(self.cfg.datapath+'/mask/' +name+'.png', 0).astype(np.float32)
-            body  = cv2.imread(self.cfg.datapath+'/body/' +name+'.png', 0).astype(np.float32)
-            detail= cv2.imread(self.cfg.datapath+'/detail/' +name+'.png', 0).astype(np.float32)
-            image, mask, body, detail = self.normalize(image, mask, body, detail)
-            image, mask, body, detail = self.randomcrop(image, mask, body, detail)
-            image, mask, body, detail = self.randomflip(image, mask, body, detail)
-            return image, mask, body, detail
-        else:
-            shape = image.shape[:2]
-            image = self.normalize(image)
-            image = self.resize(image)
-            image = self.totensor(image)
-            return image, shape, name
+        image = cv2.imread('image_in.jpg')[:,:,::-1].astype(np.float32)
+        shape = image.shape[:2]
+        image = self.normalize(image)
+        image = self.resize(image)
+        image = self.totensor(image)
+        return image, shape, 'image_in'
 
     def __len__(self):
-        return len(self.samples)
+        return 1
+
     
     def collate(self, batch):
         size = [224, 256, 288, 320, 352][np.random.randint(0, 5)]

@@ -1,0 +1,7 @@
+model-40
+image_in.jpg
+image_in.png
+image_out.png
+image_out.jpg
+.git/
+res/resnet50-19c8e357.pth
