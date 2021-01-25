@@ -19,7 +19,7 @@ from net import LDF
 class Test(object):
     def __init__(self, Dataset, Network, Path):
         ## dataset
-        self.cfg    = Dataset.Config(datapath=Path, snapshot='./out/model-40', mode='test')
+        self.cfg    = Dataset.Config(datapath=Path, snapshot='./model-40', mode='test')
         self.data   = Dataset.Data(self.cfg)
         self.loader = DataLoader(self.data, batch_size=1, shuffle=False, num_workers=8)
         ## network
@@ -34,13 +34,11 @@ class Test(object):
                 outb1, outd1, out1, outb2, outd2, out2 = self.net(image, shape)
                 out  = out2
                 pred = torch.sigmoid(out[0,0]).cpu().numpy()*255
-                head = '../eval/maps/LDF/'+ self.cfg.datapath.split('/')[-1]
-                if not os.path.exists(head):
-                    os.makedirs(head)
-                cv2.imwrite(head+'/'+name[0]+'.png', np.round(pred))
+
+                cv2.imwrite('image_mask.png', np.round(pred))
 
 
 if __name__=='__main__':
-    for path in ['../data/ECSSD', '../data/PASCAL-S', '../data/DUTS', '../data/HKU-IS', '../data/DUT-OMRON', '../data/THUR15K']:
+    for path in ['../data/STRUCTURE']:
         t = Test(dataset, LDF, path)
         t.save()
