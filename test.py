@@ -17,7 +17,7 @@ from net import LDF
 class Test(object):
     def __init__(self, Dataset, Network, Path):
         ## dataset
-        self.cfg    = Dataset.Config(datapath="res", snapshot='./model-40', mode='test')
+        self.cfg    = Dataset.Config(datapath=".", snapshot='./model-40', mode='test')
         self.data   = Dataset.Data(self.cfg)
         self.loader = DataLoader(self.data, batch_size=1, shuffle=False, num_workers=2)
         ## network
@@ -40,3 +40,4 @@ class Test(object):
 if __name__=='__main__':
     t = Test(dataset, LDF, "./")
     t.save()
+    print("success")

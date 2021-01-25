@@ -74,9 +74,9 @@ class Config(object):
         self.kwargs = kwargs
         self.mean   = np.array([[[124.55, 118.90, 102.94]]])
         self.std    = np.array([[[ 56.77,  55.97,  57.50]]])
-        print('\nParameters...')
-        for k, v in self.kwargs.items():
-            print('%-10s: %s'%(k, v))
+        #print('\nParameters...')
+        #for k, v in self.kwargs.items():
+         #   print('%-10s: %s'%(k, v))
 
     def __getattr__(self, name):
         if name in self.kwargs:
